@@ -7,7 +7,7 @@ stages{
     steps{
         sh '''
             cd /var/lib
-            zip -r /tmp/jenkins_backup.zip jenkins
+            tar -czf ${WORKSPACE}/jenkins_backup.tgz jenkins
            '''
         }
     }
@@ -15,7 +15,7 @@ stages{
     stage ('Upload into S3 bucket'){
         steps{
             script{
-            s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinsbkp-1', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '/var/lib', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 's3-jenkinsbkp', userMetadata: []
+            s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinsbkp-1', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '*.tgz', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 's3-jenkinsbkp', userMetadata: []
         }
    } 
 }
