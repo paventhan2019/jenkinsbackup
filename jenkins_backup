@@ -7,7 +7,7 @@ stages{
     steps{
         sh '''
             cd /var/lib
-            tar -czf ${WORKSPACE}/jenkins_backup.tgz jenkins
+            zip -r ${WORKSPACE}/jenkins_backup.zip jenkins
            '''
         }
     }
