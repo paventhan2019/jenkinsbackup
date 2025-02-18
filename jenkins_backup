@@ -3,7 +3,7 @@ pipeline{
         label 'linux'
     }
 stages {
-   stage ('Jenkins Backup') {
+   stage ('Jenkins Backup'){
         steps {
             sh '''
                 cd /var/lib
